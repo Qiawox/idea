@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div class="task">
+            <h1>Task name</h1>
+            <input type="text" placeholder="Enter task name" class="name">
+        </div>
+        <div class="subtask">
+            <h1>
+                Subtask
+                <input type="text" placeholder="Quantity" class="Quantity"><button class="plus">+</button></h1>
+            <div class="main">
+                <div class="label">
+                    <span class="desc">Description</span><span class="time">Time</span><span>Button</span>
+                </div>
+                <div class="form">
+
+                </div><br>
+                <button class="save">SAVE TASK IN LocalStorage</button>
+                <button type="button" class="create">CREATE NEW TASK</button>
+            </div>
+        </div>
+        <h1 class="list">Task list</h1>
+        <div class="result">
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $('button.plus').on('click', function() {
+            const Quantity = document.querySelector('.Quantity').value;
+            for (let i = 0; i < Quantity; i++) {
+                const li = document.createElement('li');
+                li.classList.add('spisok');
+                li.setAttribute('data', 'active');
+                li.setAttribute('id', +i);
+                const span = document.createElement('span');
+                span.classList.add('s1');
+                const span1 = document.createElement('span');
+                span1.classList.add('s2');
+                li.appendChild(span);
+                li.appendChild(span1);
+                document.querySelector('.result').appendChild(li);
+                // document.querySelector('.spisok').style.display = "none";
+                const form = document.querySelector(".form");
+                const text = document.createElement("input");
+
+
+                text.setAttribute('id', +i);
+                alert(i);
+
+
+                // i++;
+
+                const number = document.createElement("input");
+                number.setAttribute('id', +i);
+                const button = document.createElement("button");
+                const br = document.createElement("br");
+                const var2 = document.createElement("div");
+                var2.classList.add("bl");
+                var2.setAttribute('data-todo-state', 'active');
+                text.setAttribute("type", "text");
+                text.classList.add("rrr");
+                number.setAttribute("type", "number");
+                number.classList.add("number");
+                button.classList.add("del");
+                button.setAttribute("onclick", "maou(event)")
+                form.classList.add("form");
+                button.innerHTML = "X";
+                // form.className('form');
+                // const div = document.querySelector('.form').innerHTML = "<input type='text'><input type='number'><button class='del'>X</button>";
+                // form.innerHTML = "<input type='text'><input type='number'><button class='del'>X</button>";
+                var2.appendChild(text);
+                var2.appendChild(number);
+                var2.appendChild(button);
+                var2.appendChild(br);
+                form.appendChild(var2);
+                document.querySelector('.label').style.display = "flex";
+                document.querySelector('.save').style.display = "inline-block";
+                document.querySelector('.create').style.display = "inline-block";
+            }
+        })
+    </script>
+    <script>
+        $('button.create').on('click', function() {
+            const Quantity = document.querySelector('.Quantity').value;
+            const divik = document.createElement('div');
+            divik.classList.add('divik');
+            const span = document.createElement('span');
+            span.classList.add('head');
+            span.innerHTML = document.querySelector('.name').value;
+            for (let i = 0; i < Quantity; i++) {
+                divik.appendChild(span);
+                // document.querySelector('.s1').innerHTML = document.querySelector(`.rrr[id='${+i}']`).value;
+                // document.querySelector('.s2').innerHTML = document.querySelector('.number').value;
+                divik.appendChild(document.querySelector('.spisok'));
+                document.querySelector('.spisok').setAttribute('data', 'completed');
+                document.querySelector('.s1').innerHTML = document.querySelector(`.rrr[id='${+i}']`).value;
+                document.querySelector('.s2').innerHTML = document.querySelector(`.number[id='${+i}']`).value;
+                // divik.appendChild(document.querySelector('.spisok'));
+                document.querySelector('.result').appendChild(divik);
+                document.querySelector('.spisok').setAttribute('data', 'completed');
+                document.querySelector('.result').appendChild(span);
+                document.querySelector('.result').appendChild(divik);
+            }
+
+            localStorage.setItem('todo', document.querySelector('.result').innerHTML);
+        })
+    </script>
+    <script>
+        const fromStorage = localStorage.getItem('todo');
+        if (fromStorage) {
+            document.querySelector('.result').innerHTML = fromStorage;
+        }
+    </script>
+</body>
+
+</html>
